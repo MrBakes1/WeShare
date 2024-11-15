@@ -80,6 +80,11 @@ Resources:
               - "/hello/*"
       ListenerArn: !Sub '{{resolve:ssm:public-lb-listener}}'
       Priority: 10
+
+  rCodeBuildLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: /codebuild/hello-server
 ###############################################################################
 #
 # OUTPUTS
