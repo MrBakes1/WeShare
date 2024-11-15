@@ -85,6 +85,16 @@ Resources:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: /codebuild/hello-server
+
+  rS3ArtifactBucket:
+    Type: AWS::S3::Bucket 
+    DeletionPolicy: Delete 
+    Properties: 
+      BucketName: !Sub ${AWS::AccountId}-artifacts-bucket 
+      BucketEncryption: 
+        ServerSideEncryptionConfiguration:
+            - ServerSideEncryptionByDefault: 
+                SSEAlgorithm: 'AES256'
 ###############################################################################
 #
 # OUTPUTS
