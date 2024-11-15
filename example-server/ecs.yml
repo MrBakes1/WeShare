@@ -76,8 +76,8 @@ Resources:
       Conditions:
         - Field: path-pattern
           PathPatternConfig:
-          Values:
-            - "/hello/*"
+            Values:
+              - "/hello/*"
       ListenerArn: !Sub '{{resolve:ssm:public-lb-listener}}'
       Priority: 10
 ###############################################################################
