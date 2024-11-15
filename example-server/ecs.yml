@@ -23,23 +23,28 @@ Resources:
       Type: String
       Value: !Ref rECRRepo
 
+  rECSLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: /ecs/hello-server
+
   rTaskDefinition:
     Type: AWS::ECS::TaskDefinition
     Properties:
       ContainerDefinitions:
         - Name: hello-server
-        Image: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/hello-server
-        PortMappings:
-          - ContainerPort: 80
-          HostPort: 80
-          Protocol: tcp
-      Essential: true
-      LogConfiguration:
-          LogDriver: awslogs
-          Options:
-            awslogs-group: /ecs/hello-server
-            awslogs-region: eu-west-1
-            awslogs-stream-prefix: ecs
+          Image: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/hello-server
+          PortMappings:
+            - ContainerPort: 80
+              HostPort: 80
+              Protocol: tcp
+          Essential: true
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: /ecs/hello-server
+              awslogs-region: eu-west-1
+              awslogs-stream-prefix: ecs
       Family: hello-server
       NetworkMode: bridge
       Memory: 256
