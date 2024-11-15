@@ -55,3 +55,7 @@ Resources:
 # OUTPUTS
 #
 ###############################################################################
+Outputs:
+  ECSTaskDefinition:
+    Description: The created Taskdefinition.
+    Value: !Ref rTaskDefinition
