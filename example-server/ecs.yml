@@ -22,6 +22,29 @@ Resources:
       Name: ecr-repo-name
       Type: String
       Value: !Ref rECRRepo
+
+  rTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      ContainerDefinitions:
+        - Name: hello-server
+        Image: !Sub ${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/hello-server
+        PortMappings:
+          - ContainerPort: 80
+          HostPort: 80
+          Protocol: tcp
+      Essential: true
+      LogConfiguration:
+          LogDriver: awslogs
+          Options:
+            awslogs-group: /ecs/hello-server
+            awslogs-region: eu-west-1
+            awslogs-stream-prefix: ecs
+      Family: hello-server
+      NetworkMode: bridge
+      Memory: 256
+      RequiresCompatibilities:
+            - EC2
 ###############################################################################
 #
 # OUTPUTS
