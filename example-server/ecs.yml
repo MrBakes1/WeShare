@@ -50,6 +50,22 @@ Resources:
       Memory: 256
       RequiresCompatibilities:
             - EC2
+
+  rTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: hello-server-tg
+      TargetType: instance
+      HealthCheckIntervalSeconds: 5
+      HealthCheckPath: /ping
+      HealthCheckTimeoutSeconds: 3
+      HealthyThresholdCount: 2
+      Port: 80
+      Protocol: HTTP
+      VpcId: !Sub '{{resolve:ssm:vpc}}'
+      TargetGroupAttributes:
+      - Key: deregistration_delay.timeout_seconds
+        Value: '5'
 ###############################################################################
 #
 # OUTPUTS
